@@ -26,6 +26,12 @@
 
            console.log(userName);
 
+           let userLocation = document.createElement('div');
+           userLocation.setAttribute('class', 'user-location');
+           userLocation.innerText = `${data.location.city.charAt(0).toUpperCase() + data.location.city.slice(1)} ${data.location.state.charAt(0).toUpperCase() + data.location.state.slice(1)}`;
+        
+           console.log(data.location.city);
+
            //email
            let userEmail = document.createElement('div');
            userEmail.setAttribute('class', 'user-email');
@@ -35,6 +41,7 @@
 
            //append data to created element
            displayCardChild.appendChild(image);
+           displayCardChild.appendChild(userLocation);
            displayCardChild.appendChild(userName);
            displayCardChild.appendChild(userEmail);
 

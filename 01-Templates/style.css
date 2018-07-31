@@ -1,8 +1,9 @@
 .user {
     background-color: #ccc;
-    height: 100px;
+    height: 120px;
     padding: 10px;
-    margin: 8px;
+    margin: 15px;
+    border-radius: 5px;
     list-style-type: none;
 }
 
@@ -11,6 +12,7 @@
     height: 100px;
     width: auto;
     margin-right: 20px;
+    border-radius: 5px;
 }
 
 .user-name {
