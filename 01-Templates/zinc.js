@@ -47,12 +47,15 @@
 
            //append created element to existing element
            displayCard.appendChild(displayCardChild);
-
-        
-
        }
-       return results;
     }
+
+
+    //render template function
+    // renderTemplate(tempStr, obj) {
+    //     tempStr.replace('name', object.name);
+
+    // }
 
     function init() {
         fetch('https://randomuser.me/api/?results=5')
