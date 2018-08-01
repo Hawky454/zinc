@@ -43,7 +43,7 @@ function populateList(results) {
        displayCardChild.appendChild(userName);
        displayCardChild.appendChild(userEmail);
 
-// could use append(image, userLocation, userName, userEmail).
+// could use append(image, userLocation, userName, userEmail). wrote all code without any help... yay!
 
 
 
