@@ -8,9 +8,9 @@
         fetch(`${template}.html`)
             .then(template => template.text())
             .then((template) => {
-                let bracketStuff = /{{\s*([\w.]+)\s*}}/g;
+                let myRegEx = /{{\s*([\w.]+)\s*}}/g;
                 users.forEach((user) => {
-                    let renderTemplate = template.replace(bracketStuff, (match, matches) => {
+                    let renderTemplate = template.replace(myRegEx, (match, matches) => {
                         let arr = matches.split('.');
                         return arr.reduce((acc, curr) => acc[curr], user);
                     });
