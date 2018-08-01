@@ -1,32 +1,64 @@
-'use strict';
+ 'use strict';
 
-
+ /* eslint-env browser */
 
 (() => {
+function populateList(results) {
+ // eslint-disable-line no-console
+   for(let i = 0; i < results.length; i++) {
+       let data = results[i];
+       console.log(data);
+       let displayCardChild = document.createElement('li');
+       displayCardChild.setAttribute('class', 'user');
 
-    function renderTemplate(template, users) {
-        fetch(`${template}.html`)
-            .then(template => template.text())
-            .then((template) => {
-                let bracketStuff = /{{\s*([\w.]+)\s*}}/g;
-                users.forEach((user) => {
-                    let renderTemplate = template.replace(bracketStuff, (match, matches) => {
-                        let arr = matches.split('.');
-                        return arr.reduce((acc, curr) => acc[curr], user);
-                    });
-                    document.getElementById('z-user-list').insertAdjacentHTML('beforeend', renderTemplate);
-                });
-            });
-    };
+       let displayCard = document.getElementById('z-user-list');
+       //image
+       let image = document.createElement('img');
+       image.setAttribute('src', data.picture.thumbnail);
+       image.setAttribute('class', 'user-photo');
 
-    function init() {
-        fetch('https://randomuser.me/api/?results=5')
-            .then(res => res.json())
-            .then(data => renderTemplate('user', data.results));
-    }
+       console.log(image);
+       //user name
+       let userName = document.createElement('div');
+       userName.setAttribute('class', 'user-name');
+       userName.innerText = `${data.name.first.charAt(0).toUpperCase() + data.name.first.slice(1)} ${data.name.last.charAt(0).toUpperCase() + data.name.last.slice(1)}`;
 
-    document.addEventListener('DOMContentLoaded', init);
+       console.log(userName);
+
+       let userLocation = document.createElement('div');
+       userLocation.setAttribute('class', 'user-location');
+       userLocation.innerText = `${data.location.city.charAt(0).toUpperCase() + data.location.city.slice(1)} ${data.location.state.charAt(0).toUpperCase() + data.location.state.slice(1)}`;
+
+       console.log(data.location.city);
+
+       //email
+       let userEmail = document.createElement('div');
+       userEmail.setAttribute('class', 'user-email');
+       userEmail.innerText = data.email;
+
+       console.log(userEmail)
+
+       //append data to created element
+       displayCardChild.appendChild(image);
+       displayCardChild.appendChild(userLocation);
+       displayCardChild.appendChild(userName);
+       displayCardChild.appendChild(userEmail);
+
+could use append(image, userLocation, userName, userEmail).
+
+making a function:
+
+
+       //append created element to existing element
+       displayCard.appendChild(displayCardChild);
+   }
+}
 })();
+
+
+
+
+
 
 
 
