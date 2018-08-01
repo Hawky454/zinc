@@ -1,7 +1,7 @@
 'use strict';
+/* eslint-env browser */
 
-
-
+//part 4
 (() => {
 
     function renderTemplate(template, users) {
