@@ -3,54 +3,59 @@
 /* eslint-env browser */
 
 // (() => {
-    // function populateList(results) {
-    //  // eslint-disable-line no-console
-    //    for(let i = 0; i < results.length; i++) {
-    //        let data = results[i];
-    //        console.log(data);
-    //        let displayCardChild = document.createElement('li');
-    //        displayCardChild.setAttribute('class', 'user');
+// function populateList(results) {
+//  // eslint-disable-line no-console
+//    for(let i = 0; i < results.length; i++) {
+//        let data = results[i];
+//        console.log(data);
+//        let displayCardChild = document.createElement('li');
+//        displayCardChild.setAttribute('class', 'user');
 
-    //        let displayCard = document.getElementById('z-user-list');
-    //        //image
-    //        let image = document.createElement('img');
-    //        image.setAttribute('src', data.picture.thumbnail);
-    //        image.setAttribute('class', 'user-photo');
+//        let displayCard = document.getElementById('z-user-list');
+//        //image
+//        let image = document.createElement('img');
+//        image.setAttribute('src', data.picture.thumbnail);
+//        image.setAttribute('class', 'user-photo');
 
-    //        console.log(image);
-    //        //user name
-    //        let userName = document.createElement('div');
-    //        userName.setAttribute('class', 'user-name');
-    //        userName.innerText = `${data.name.first.charAt(0).toUpperCase() + data.name.first.slice(1)} ${data.name.last.charAt(0).toUpperCase() + data.name.last.slice(1)}`;
+//        console.log(image);
+//        //user name
+//        let userName = document.createElement('div');
+//        userName.setAttribute('class', 'user-name');
+//        userName.innerText = `${data.name.first.charAt(0).toUpperCase() + data.name.first.slice(1)} ${data.name.last.charAt(0).toUpperCase() + data.name.last.slice(1)}`;
 
-    //        console.log(userName);
+//        console.log(userName);
 
-    //        let userLocation = document.createElement('div');
-    //        userLocation.setAttribute('class', 'user-location');
-    //        userLocation.innerText = `${data.location.city.charAt(0).toUpperCase() + data.location.city.slice(1)} ${data.location.state.charAt(0).toUpperCase() + data.location.state.slice(1)}`;
-        
-    //        console.log(data.location.city);
+//        let userLocation = document.createElement('div');
+//        userLocation.setAttribute('class', 'user-location');
+//        userLocation.innerText = `${data.location.city.charAt(0).toUpperCase() + data.location.city.slice(1)} ${data.location.state.charAt(0).toUpperCase() + data.location.state.slice(1)}`;
 
-    //        //email
-    //        let userEmail = document.createElement('div');
-    //        userEmail.setAttribute('class', 'user-email');
-    //        userEmail.innerText = data.email;
+//        console.log(data.location.city);
 
-    //        console.log(userEmail)
+//        //email
+//        let userEmail = document.createElement('div');
+//        userEmail.setAttribute('class', 'user-email');
+//        userEmail.innerText = data.email;
 
-    //        //append data to created element
-    //        displayCardChild.appendChild(image);
-    //        displayCardChild.appendChild(userLocation);
-    //        displayCardChild.appendChild(userName);
-    //        displayCardChild.appendChild(userEmail);
+//        console.log(userEmail)
 
-    //        //append created element to existing element
-    //        displayCard.appendChild(displayCardChild);
-    //    }
-    // }
-    // })();
+//        //append data to created element
+//        displayCardChild.appendChild(image);
+//        displayCardChild.appendChild(userLocation);
+//        displayCardChild.appendChild(userName);
+//        displayCardChild.appendChild(userEmail);
 
-    (() => {
+//could use append(image, userLocation, userName, userEmail).
+
+//making a function:
+
+
+//        //append created element to existing element
+//        displayCard.appendChild(displayCardChild);
+//    }
+// }
+// })();
+
+(() => {
     //part 2
     //render template function
     function renderTemplate(tempStr, data) {
@@ -59,29 +64,25 @@
         console.log(data);
 
 
-        let myRegEx = /{{\s*([A-Za-z0-9-]+)\s*}}/gm;
+        let myRegEx = /{{\s*(\w+)\s*}}/gm;
 
-        let dataMap = data.map(user => {
-            let userData = {
+        let dataMap = data.map(user => ({
                 photo: user.picture.thumbnail,
                 firstName: user.name.first.charAt(0).toUpperCase() + user.name.first.slice(1),
                 lastName: user.name.last.charAt(0).toUpperCase() + user.name.last.slice(1),
                 city: user.location.city.charAt(0).toUpperCase() + user.location.city.slice(1),
                 state: user.location.state.charAt(0).toUpperCase() + user.location.state.slice(1),
                 email: user.email
-            };
-            return userData;
-
-        })
+        }));
         console.log(dataMap);
 
         dataMap.forEach(user => {
-            let userString = tempStr.replace(myRegEx, (match, captured) => {
+            let userString = tempStr.replace(myRegEx, (match, replaced) => {
 
-                return user[captured];
-                
+                return user[replaced];
+
             })
-            userList.insertAdjacentHTML('afterend', userString);
+            userList.insertAdjacentHTML('beforeend', userString);
         })
     }
 
@@ -105,6 +106,10 @@
 
     document.addEventListener('DOMContentLoaded', init);
 
-     
+
 })();
 
+// (() => {
+//     //part 3.
+
+// })();
