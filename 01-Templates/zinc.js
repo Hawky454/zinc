@@ -42,9 +42,8 @@ function populateList(results) {
        displayCardChild.appendChild(userName);
        displayCardChild.appendChild(userEmail);
 
-could use append(image, userLocation, userName, userEmail).
-
-making a function:
+// could use append(image, userLocation, userName, userEmail).
+// making a function:
 
 
        //append created element to existing element
