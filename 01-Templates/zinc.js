@@ -20,8 +20,9 @@
                 state: user.location.state.charAt(0).toUpperCase() + user.location.state.slice(1),
                 email: user.email
         }));
+        
         console.log(dataMap);
-
+        //need to use more often
         dataMap.forEach(user => {
             let userString = tempStr.replace(myRegEx, (match, replaced) => {
 
