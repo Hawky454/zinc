@@ -1,5 +1,6 @@
 'use strict';
 /* eslint-env browser */
+//part1
 (() => {
 function populateList(results) {
  // eslint-disable-line no-console
@@ -43,7 +44,7 @@ function populateList(results) {
        displayCardChild.appendChild(userEmail);
 
 // could use append(image, userLocation, userName, userEmail).
-// making a function:
+
 
 
        //append created element to existing element
