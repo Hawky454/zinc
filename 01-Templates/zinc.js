@@ -23,21 +23,14 @@
         <div class="user-email">{{ email }}</div>
     </li>
     `;
+    console.log('Hello');
+    
 
     function init() {
         fetch('https://randomuser.me/api/?results=5')
             .then(res => res.json())
-             .then(data => renderTemplate(userLiTemplate, data.results));
+            .then(data => renderTemplate(userLiTemplate, data.results));
     }
 
     document.addEventListener('DOMContentLoaded', init);
 })();
-
-
-
-
-
-
-        
-         
-
