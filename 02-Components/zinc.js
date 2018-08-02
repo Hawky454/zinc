@@ -19,7 +19,7 @@ const userData = {
 
 const Zinc = {};
 Zinc.registerComponent = function (elementName, templateFile, dataObject) {
-    Zinc.components.elementName = {
+    Zinc.components[elementName] = {
         elementName,
         templateFile,
         dataObject
@@ -28,9 +28,17 @@ Zinc.registerComponent = function (elementName, templateFile, dataObject) {
 }
 Zinc.registerComponent('userItem', 'user', userData);
 
-Zinc.renderComponents = function (all, componentsArr) {
+Zinc.renderComponents = function (all) {
     if(all === true) {
-        for(let)
+        for(let prop in Zinc.components) {
+            renderComponent(prop['elementName'], prop['templateFile'], prop['dataObject']);
+
+        }
+
+        for (let i = 0; i < Zinc.components.length; i++) {
+            let prop = Zinc.components[i];
+
+        }
     }
 }
 
