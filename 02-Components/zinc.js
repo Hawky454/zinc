@@ -1,18 +1,14 @@
-'use strict';
+// 'use strict';
 
 /* eslint-env browser */
 
-const Zinc = {};
+const Zinc = {components:{}};
 
 
 
 (() => {
 
     Zinc.registerComponent = function (elementName, templateFile, dataObject) {
-        if (!Zinc.components) {
-            Zinc.components = {};
-
-        }
         Zinc.components[elementName] = {
             elementName,
             templateFile,
@@ -45,6 +41,8 @@ const Zinc = {};
 
         // looping through the keys and values of components object
         for (let component in components) {
+            console.log(`Component`, components[component]);
+    
 
             //passing content in object to function to render components (put content in html) 
             renderComponent1(components[component].elementName, components[component].templateFile, components[component].dataObject);
@@ -54,6 +52,15 @@ const Zinc = {};
     function init() {
         Zinc.registerComponent('user-item', 'user', Zinc.userData);
         renderComponents(Zinc.components);
+
+        fetch('https://randomuser.me/api/?results=5')
+        .then(res => res.json())
+        .then(data => {
+            data.results.forEach(user => {
+                Zinc.registerComponent('user-item', 'user', user);
+                renderComponents(Zinc.components);
+            })
+        })
     }
 
     document.addEventListener('DOMContentLoaded', init);
