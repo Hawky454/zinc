@@ -2,67 +2,58 @@
 
 /* eslint-env browser */
 
-const userData = {
-    picture: {
-        thumbnail: 'https://f4.bcbits.com/img/0001142378_10.jpg'
-    },
-    name: {
-        first: 'Jack',
-        last: 'Burton'
-    },
-    location: {
-        city: 'San Francisco',
-        state: 'CA'
-    },
-    email: 'jack.burton@example.com'
-};
-
 const Zinc = {};
-Zinc.registerComponent = function (elementName, templateFile, dataObject) {
-    Zinc.components[elementName] = {
-        elementName,
-        templateFile,
-        dataObject
-    }
-    console.log(Zinc.elementName);
-}
-Zinc.registerComponent('userItem', 'user', userData);
-
-Zinc.renderComponents = function (all) {
-    if(all === true) {
-        for(let prop in Zinc.components) {
-            renderComponent(prop['elementName'], prop['templateFile'], prop['dataObject']);
-
-        }
-
-        for (let i = 0; i < Zinc.components.length; i++) {
-            let prop = Zinc.components[i];
-
-        }
-    }
-}
 
 
 
 (() => {
-    function renderComponent(element, content, data) {
-        let userItem = document.querySelector(element);
+
+    Zinc.registerComponent = function (elementName, templateFile, dataObject) {
+        if (!Zinc.components) {
+            Zinc.components = {};
+
+        }
+        Zinc.components[elementName] = {
+            elementName,
+            templateFile,
+            dataObject
+        };
+    }
+
+    function renderComponent1(element, content, data) {
+        let elements = Array.from(document.getElementsByTagName(element));
+
+
+        console.log(elements);
         fetch(`${content}.html`)
             .then(content => content.text())
             .then((content) => {
-                let regEx = /{{\s*([\w.]+)\s*}}/g;
-                let HTML = content.replace(regEx, (match, templateValue) => {
-                    console.log(templateValue);
-                    let templateValueArr = templateValue.split('.');
-                    return templateValueArr.reduce((acc, curr) => acc[curr], data)
+
+                elements.forEach(element => {
+                    let regEx = /{{\s*([\w.]+)\s*}}/g;
+                    let HTML = content.replace(regEx, (match, templateValue) => {
+                        let templateValueArr = templateValue.split('.');
+                        return templateValueArr.reduce((acc, curr) => acc[curr], data)
+                    })
+                    element.insertAdjacentHTML('beforeend', HTML);
                 })
-                userItem.insertAdjacentHTML('beforeend', HTML);
             })
-        // console.log(element, content); // eslint-disable-line no-console
+    }
+
+    // passing components = Zinc.components
+    function renderComponents(components) {
+
+        // looping through the keys and values of components object
+        for (let component in components) {
+
+            //passing content in object to function to render components (put content in html) 
+            renderComponent1(components[component].elementName, components[component].templateFile, components[component].dataObject);
+        }
     }
 
     function init() {
-        renderComponent('user-item', 'user', userData);
+        Zinc.registerComponent('user-item', 'user', Zinc.userData);
+        renderComponents(Zinc.components);
     }
 
     document.addEventListener('DOMContentLoaded', init);
