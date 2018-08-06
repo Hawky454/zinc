@@ -3,10 +3,8 @@
 const Zinc = {};
 (() => {
   function hilite() {
-    element.addEventListener('click', e => {
-      e.currentTarget.classList.toggle('hilight');
-      console.log(true);
-    });
+    this.firstElementChild.classList.toggle('hilight');
+    console.log(hilite);
   };
   function renderComponent(element, content, data, controller) {
     let regex = /{{\s*([\w.]+)\s*}}/g;
@@ -15,11 +13,11 @@ const Zinc = {};
       .then(content => content.text())
       .then((content) => {
         elements.forEach(element => {
-          element.addEventListener('click', controller);
           let HTML = content.replace(regex, (match, templateValue) => {
             let templateValueArr = templateValue.split('.');
             return templateValueArr.reduce((acc, curr) => acc[curr], data)
           })
+          element.addEventListener('click', controller);
           element.insertAdjacentHTML('beforeend', HTML);
         })
       })
@@ -51,7 +49,7 @@ const Zinc = {};
       //removes Jack form the list
       // Zinc.registerComponent('user-item', 'user', Zinc.userData, controller);
       // renderComponents(Zinc.components);
-      fetch('https://randomuser.me/api/?results=7')
+      fetch('https://randomuser.me/api/?results=1')
       .then(res => res.json())
       .then(data => {
         data.results.forEach(user => {
