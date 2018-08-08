@@ -52,13 +52,6 @@ const Zinc = {components: {}};
         };
     }
 
-    //recursive function?
-    //DOM parser?
-    //let parser = DOMParser();
-    //element to a string
-    //let string = ;?
-    //parser.parseredString
-    //=>queryselector<=Zinc.components
 
     function reviewStackLine(parentNode) {
       Array.from(parentNode.childNode).forEach((node) => {
@@ -71,9 +64,9 @@ const Zinc = {components: {}};
     }
 
     function init() {
-      //removes Jack Burton form the list
-      // Zinc.registerComponent('user-item', 'user', Zinc.userData, controller);
-      // renderComponents(Zinc.components);
+      //*removes Jack Burton form the list
+      //*Zinc.registerComponent('user-item', 'user', Zinc.userData, controller);
+      //*renderComponents(Zinc.components);
 
       fetch('https://randomuser.me/api/?results=2')
       .then(res => res.json())
