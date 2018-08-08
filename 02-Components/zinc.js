@@ -1,43 +1,49 @@
 'use strict';
+
 /* eslint-env browser */
-const Zinc = {};
+
+const Zinc = {components: {}};
+
 (() => {
   function hilight() {
-    this.firstElementChild.classList.toggle('hilight');
-    console.log(this);
+    this.classList.toggle('hilight');
   };
-  Zinc.registerComponent = function(configObj) {
-    if (!Zinc.components) {
-      Zinc.components = {};
-    }
-    Zinc.components[element.configObj] = {
-      name: configObj.elementName,
-      templateFile: configObj.templateFile,
-      data: configObj.data,
-      controller: configObj.controller
-    }
-  }
+
   function renderComponent(element, content, data, controller) {
     let regex = /{{\s*([\w.]+)\s*}}/g;
     let elements = Array.from(document.getElementsByTagName(element));
+
     fetch(`${content}.html`)
       .then(content => content.text())
       .then((content) => {
         elements.forEach(element => {
-          let HTML = content.replace(regex, (match, templateValue) => {
-            let templateValueArr = templateValue.split('.');
-            return templateValueArr.reduce((acc, curr) => acc[curr], data)
+          console.log(element);
+          let HTML = content.replace(regex, (match, capture) => {
+            let arr = capture.split('.');
+
+            return arr.reduce((acc, curr) => acc[curr], data)
           })
           element.addEventListener('click', controller);
           element.insertAdjacentHTML('beforeend', HTML);
+          //
+          // let children = Array.from(element.firstElementChild.children);
+          //
+          // children.forEach(child => {
+          //   child.insertAdjacentHTML('beforeend', HTML);
+          //   child.addEventListener('click', controller);
+          //
+          //   // let grandchildren = Array.from(child, children);
+          //   // grandchildren.forEach(grandchild => {
+          //   //   //grandchild.insertAdjacentHTML('beforeend', HTML);
+          //   //   grandchild.addEventListener('click', controller);
+          //   // })
+          // })
         })
       })
     }
-    // passing components = Zinc.components
+
     function renderComponents(components) {
-      // looping through the keys and values of components object
       for(let component in components) {
-        //passing content in object to function to render components (put content in html)
         renderComponent(
           components[component].name,
           components[component].templateFile,
@@ -45,10 +51,12 @@ const Zinc = {};
           components[component].controller)
       }
     }
+
     Zinc.registerComponent = function(configObj) {
-        if (!Zinc.components) {
-          Zinc.components = {};
-        }
+        //called in Zinc at begining does self check
+        //if (!Zinc.components) {
+        //  Zinc.components = {};
+        //}
         Zinc.components[configObj.name] = {
           name: configObj.name,
           templateFile: configObj.templateFile,
@@ -56,23 +64,55 @@ const Zinc = {};
           controller: configObj.controller
         };
     }
+
+    //recursive function?
+    //DOM parser?
+    //let parser = DOMParser();
+    //element to a string
+    //let string = ;?
+    //parser.parseredString
+    //=>queryselector<=Zinc.components
+
+    function reviewStackLine(parentNode) {
+      Array.from(parentNode.childNode).forEach(node) => {
+        element = document.querySelector(Zinc.components);
+
+
+
+
+      }
+    }
+
     function init() {
-      //removes Jack form the list
+      //removes Jack Burton form the list
       // Zinc.registerComponent('user-item', 'user', Zinc.userData, controller);
       // renderComponents(Zinc.components);
-      fetch('https://randomuser.me/api/?results=1')
+
+      fetch('https://randomuser.me/api/?results=2')
       .then(res => res.json())
       .then(data => {
         data.results.forEach(user => {
+
           Zinc.registerComponent({
-              name: 'user-item',
-              templateFile: 'user',
-              data: user,
-              controller: hilight
+            name: 'user-list',
+            templateFile: 'list',
+            data: user,
+            controller: hilight
           });
+          //console.log(user);
+
+          Zinc.registerComponent({
+            name: 'user-info',
+            templateFile: 'user',
+            data: user,
+            controller: hilight
+          });
+          console.log(user);
+
           renderComponents(Zinc.components);
         })
       })
     }
     document.addEventListener('DOMContentLoaded', init);
+
 })();
