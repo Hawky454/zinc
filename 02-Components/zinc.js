@@ -25,19 +25,6 @@ const Zinc = {components: {}};
           })
           element.addEventListener('click', controller);
           element.insertAdjacentHTML('beforeend', HTML);
-          //
-          // let children = Array.from(element.firstElementChild.children);
-          //
-          // children.forEach(child => {
-          //   child.insertAdjacentHTML('beforeend', HTML);
-          //   child.addEventListener('click', controller);
-          //
-          //   // let grandchildren = Array.from(child, children);
-          //   // grandchildren.forEach(grandchild => {
-          //   //   //grandchild.insertAdjacentHTML('beforeend', HTML);
-          //   //   grandchild.addEventListener('click', controller);
-          //   // })
-          // })
         })
       })
     }
@@ -74,13 +61,13 @@ const Zinc = {components: {}};
     //=>queryselector<=Zinc.components
 
     function reviewStackLine(parentNode) {
-      Array.from(parentNode.childNode).forEach(node) => {
+      Array.from(parentNode.childNode).forEach((node) => {
         element = document.querySelector(Zinc.components);
 
 
 
 
-      }
+      })
     }
 
     function init() {
@@ -101,13 +88,13 @@ const Zinc = {components: {}};
           });
           //console.log(user);
 
-          Zinc.registerComponent({
-            name: 'user-info',
-            templateFile: 'user',
-            data: user,
-            controller: hilight
-          });
-          console.log(user);
+        //   Zinc.registerComponent({
+        //     name: 'user-info',
+        //     templateFile: 'user',
+        //     data: user,
+        //     controller: hilight
+        //   });
+          console.log('user', user);
 
           renderComponents(Zinc.components);
         })
