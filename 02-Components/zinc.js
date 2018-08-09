@@ -17,7 +17,9 @@ const Zinc = {components: {}};
       .then(content => content.text())
       .then((content) => {
         elements.forEach(element => {
+
           console.log(element);
+          
           let HTML = content.replace(regex, (match, capture) => {
             let arr = capture.split('.');
 
